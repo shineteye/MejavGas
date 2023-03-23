@@ -2,31 +2,35 @@ import React, { useState } from 'react';
 import { Image, Modal, Pressable, Text, TextInput, View } from 'react-native';
 import styles from '../styles/LoginPageStyle';
 
+const cablePhoneAddress = "http://192.168.137.1:3000"
+const localhostAddress = "http://localhost:3000"
+const devAddress = "https://devsite.com"
+
 const LoginPage = ({ navigation }) => {
 
     const [modalOpen, setModalOpen] = useState(false);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
-
-
-
+    const handleSignup = () => {
+        handleModalClose()
+        navigation.navigate("SignUpPage")
+    }
     const handleLogin = async () => {
         try {
-            const response = await fetch('http://localhost:3000/login', {
+            fetch(cablePhoneAddress + '/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({ email, password })
             });
-            const data = await response.json();
             handleModalClose()
-
-            alert(data.message)
+            // alert(message)
 
             navigation.navigate('DashboardPage')
         } catch (e) {
+            console.log(e);
             alert("error")
         }
 
@@ -40,29 +44,23 @@ const LoginPage = ({ navigation }) => {
     return (
         <View style={styles.container}>
             <View style={styles.header}>
-                <Text style={{ ...styles.headerText, ...styles.LoginHeaderText }}>LoginPage</Text>
+                <Text style={{ ...styles.headerText }}>Thanks for creating an account</Text>
             </View>
 
             {/* Modal */}
             <Modal visible={modalOpen} animationType={'slide'}>
                 <View style={styles.modalContent}>
-                    <View style={styles.modalContainer}>
-                        <Pressable onPress={handleModalClose}>
-                            <View style={styles.launchBtn}>
-                                <Text style={styles.launchBtnText}>back</Text>
-                            </View>
-                        </Pressable>
-                    </View>
-                    <View style={styles.modalContainer}>
+                    <View style={styles.modalImageContainer}>
                         <Image
                             source={require('../assets/gas-tank.png')}
                             style={{
                                 width: 100, height: 100,
                                 justifyContent: 'center',
                                 alignItems: 'flex-start',
+                                // backgroundColor: '#ccc'
                             }} />
                     </View>
-                    <View style={styles.modalContainer}>
+                    <View style={styles.modalFormContainer}>
                         <Text style={styles.labelText}>Email</Text>
                         <TextInput
                             style={styles.textInput}
@@ -81,19 +79,23 @@ const LoginPage = ({ navigation }) => {
                         <View style={styles.submitBtn}>
                             <Pressable onPress={handleLogin}>
                                 <View style={styles.launchBtn}>
-                                    <Text style={styles.launchBtnText}>Submit</Text>
+                                    <Text style={styles.loginBtnText}>Login</Text>
                                 </View>
                             </Pressable>
-
                         </View>
+                    </View>
+                    <View style={styles.modalCloseBtnView}>
+                        <Pressable onPress={handleSignup}>
+                            <Text style={styles.leaveLoginBtnText}>Don't yet have an account?</Text>
+                        </Pressable>
                     </View>
                 </View>
             </Modal>
-
+            {/* Main Login Page */}
             <View>
                 <Pressable onPress={handleModalOpen}>
                     <View style={styles.launchBtn}>
-                        <Text style={styles.launchBtnText}>Login</Text>
+                        <Text style={styles.loginText}>Get Started</Text>
                     </View>
                 </Pressable>
             </View>

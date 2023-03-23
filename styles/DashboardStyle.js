@@ -12,44 +12,73 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         height: '100%'
     },
+    cardContainer: {
+    },
     headerInfo: {
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'flex-start',
         backgroundColor: '#fff',
-        margin: 20
+        marginTop: 50
     },
     headerText: {
         color: foreGcolor,
         fontSize: 30,
-        fontWeight: 'bold',
+        fontWeight: 700,
         padding: 10,
     },
     image: {
         alignItems: 'flex-start',
         justifyContent: 'flex-start',
     },
-    body: {
-        flex: 3,
-        // backgroundColor: '#fff',
+    orderBody: {
+        // flex: 1,
+        marginTop: 20,
+        marginBottom: 20,
+        alignItems: "center",
+        justifyContent: "center",
+        // backgroundColor: '#ccc',
+        padding: 0
     },
     labelText: {
         color: foreGcolor,
-        fontWeight: 'bold'
+        fontWeight: 700,
+        fontSize: 16
     },
     textInput: {
-        borderWidth: 4,
-        borderRadius: 8,
-        color: '#fff',
-        borderColor: '#fff',
-        backgroundColor: foreGcolor,
-        padding: 8,
-        margin: 10,
-        width: 200,
+        borderWidth: 2,
+        borderLeftColor: backgcolor,
+        borderRightColor: backgcolor,
+        borderTopColor: backgcolor,
+        borderBottomColor: foreGcolor,
+        color: foreGcolor,
+        fontSize: 20,
+        backgroundColor: backgcolor,
+        paddingBottom: 2,
+        marginBottom: 10,
+        width: 300,
     },
     text: {
-        fontWeight: 'bold',
+        fontWeight: 700,
         color: foreGcolor
+    },
+    orderBtn: {
+        backgroundColor: foreGcolor,
+        height: 50,
+        width: 150,
+        borderRadius: 5,
+        alignItems: "center",
+        justifyContent: "center"
+    },
+    orderBtnText: {
+        color: 'white',
+        fontSize: 20,
+        fontWeight: 700
+    },
+    bottomInfo: {
+        margin: 10,
+        alignItems: "center",
+        justifyContent: "center"
     }
 })
 

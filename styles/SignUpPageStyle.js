@@ -7,65 +7,68 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: backgcolor,
-        alignItems: 'center',
-        color: 'white',
-        justifyContent: 'center',
-        height: '100%'
     },
     headerText: {
         color: foreGcolor,
         fontSize: 30,
-        fontWeight: 'bold',
+        fontWeight: 700,
         padding: 10,
     },
     headerInfo: {
         flexDirection: 'row',
         alignItems: 'center',
-        justifyContent: 'flex-start',
-        // backgroundColor: '#fff',
-        margin: 20
-    },
-    manImgContainer: {
-        // backgroundColor: '#fff',
+        justifyContent: 'center',
+        backgroundColor: backgcolor,
+        marginTop: 60,
+        marginBottom: 50
     },
     text: {
-        fontWeight: 'bold',
+        fontWeight: 700,
         color: foreGcolor
     },
     form: {
         flex: 1,
-        alignItems: 'center'
+        alignItems: 'center',
+        marginTop: 30,
+        width: '80%',
+        backgroundColor: "#c3234"
+    },
+    formField: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginBottom: 5
     },
     labelText: {
         color: foreGcolor,
-        fontWeight: 400,
+        fontWeight: 700,
+        fontSize: 16
     },
     textInput: {
         borderWidth: 2,
         borderLeftColor: backgcolor,
         borderRightColor: backgcolor,
         borderTopColor: backgcolor,
+        borderBottomColor: foreGcolor,
         color: foreGcolor,
-        borderColor: foreGcolor,
+        fontSize: 20,
+        // textAlign: "center",
         backgroundColor: backgcolor,
-        fontWeight: 600,
-        padding: 8,
+        paddingBottom: 2,
         marginBottom: 10,
-        width: 200,
+        width: 300,
     },
-    launchBtn: {
+    submitBtn: {
         backgroundColor: foreGcolor,
-        marginTop: 20,
         height: 45,
         width: 150,
-        justifyContent: 'center',
         alignItems: 'center',
         borderRadius: 5
     },
-    launchBtnText: {
+    submitBtnText: {
         color: 'white',
         fontSize: 30,
-        fontWeight: 'bold',
+        fontWeight: 700,
         display: 'flex',
     },
 })

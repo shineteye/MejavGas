@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
     headerText: {
         color: foreGcolor,
         fontSize: 30,
-        fontWeight: 'bold',
+        fontWeight: 700,
         marginBottom: 100
     },
     image: {
@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
     launchBtnText: {
         color: 'white',
         fontSize: 30,
-        fontWeight: 'bold',
+        fontWeight: 700,
         display: 'flex',
     },
 })

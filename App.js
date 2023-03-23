@@ -29,7 +29,6 @@ export default function App() {
           component={DashboardScreen}
           options={{ title: 'Order' }} />
       </Stack.Navigator>
-
     </NavigationContainer>
   );
 }
