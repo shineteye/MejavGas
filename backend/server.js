@@ -2,14 +2,20 @@ const express = require("express");
 const bodyParser = require('body-parser')
 const bcrypt = require("bcrypt");
 const cors = require("cors");
+const userRouter = require('./routes/user');
+const PORT = process.env.PORT || 3000;
+require('dotenv').config();
+require('./model/db');
+// require('../model/db')
 // const passport = require("")
 // const initializePassport = require("./passport-config")
 
-
 const app = express();
+app.use(userRouter);
 app.use(cors())
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use(express.json())
 
 
 const users = [{
@@ -24,35 +30,36 @@ const orders = [{
     amount: 10
 }]
 
-app.post("/login", async (req, res) => {
 
+app.get("/test", async (req, res) => {
+    res.send("Hello Test Worked")
 })
 
-app.get("/login", async (req, res) => {
-    res.send("The login route")
 
-})
 
 app.get("/oredr", async (req, res) => {
     res.send('Login route hit')
 })
+
+
 app.post("/order", async (req, res) => {
     try {
         orders.push({
             id: Date.now().toString(),
             location: req.body.location,
             hostel: req.body.hostel,
-            amount: req.body.amount
+            amount: req.body.total
         })
         console.log(orders);
         res.json({
             success: true,
-            message: "User successfully logged in."
+            message: "order placed succesfully."
         })
     } catch (error) {
         console.log(error)
     }
 })
+
 
 app.post("/register", async (req, res) => {
     try {
@@ -69,7 +76,6 @@ app.post("/register", async (req, res) => {
             success: true,
             message: "User successfully logged in."
         })
-
     } catch (error) {
         console.log(error)
     }
@@ -81,8 +87,7 @@ app.get("/register", async (req, res) => {
 })
 
 
-
 app.listen(3000, () => {
-    console.log("Server running on port 3000");
+    console.log(`Listening on port ${PORT}`);
 })
 

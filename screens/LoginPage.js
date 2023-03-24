@@ -27,7 +27,7 @@ const LoginPage = ({ navigation }) => {
             });
             handleModalClose()
             // alert(message)
-
+            console.log("logged in");
             navigation.navigate('DashboardPage')
         } catch (e) {
             console.log(e);

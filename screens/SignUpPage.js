@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Alert, Image, Pressable, ScrollView, Text, TextInput, View } from 'react-native';
+import { Alert, Image, Pressable, ScrollView, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import styles from '../styles/SignUpPageStyle';
 
 const cablePhoneAddress = "http://192.168.137.1:3000"
@@ -100,9 +100,9 @@ const SignUpPage = ({ navigation }) => {
                                 <Text style={styles.submitBtnText}>Submit</Text>
                             </View>
                         </Pressable>
-                        <Text
-                            onPress={() => navigation.navigate('LoginPage')}
-                            style={{ ...styles.text, marginTop: 10 }}>Already have an account?</Text>
+                        <TouchableOpacity onPress={() => navigation.navigate('LoginPage')}>
+                            <Text style={{ ...styles.text, marginTop: 10 }}>Already have an account?</Text>
+                        </TouchableOpacity>
                     </View>
                 </View >
             </ScrollView >

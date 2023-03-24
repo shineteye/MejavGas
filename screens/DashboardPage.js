@@ -15,11 +15,11 @@ const DashboardPage = ({ navigation }) => {
     const [hostel, setHostel] = useState('')
     const [amount, setAmount] = useState('')
     const [cost, setCost] = useState(0);
-    const total = serviceCharge + cost;
+    const total = serviceCharge + amount;
 
     const handleOrder = async () => {
 
-        let orderDetails = { location, hostel, amount }
+        let orderDetails = { location, hostel, total }
         try {
             fetch(cablePhoneAddress + "/order", {
                 method: 'POST',
@@ -61,7 +61,7 @@ const DashboardPage = ({ navigation }) => {
                 <Text style={styles.labelText}>Hostel</Text>
                 <TextInput
                     style={styles.textInput}
-                    value={location}
+                    value={hostel}
                     onChangeText={(val) => setHostel(val)}
                 />
                 <Text style={styles.labelText}>Amount</Text>

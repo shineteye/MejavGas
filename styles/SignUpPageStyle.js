@@ -35,14 +35,14 @@ const styles = StyleSheet.create({
     },
     formField: {
         flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
+        justifyContent: 'flex-start',
         marginBottom: 5
     },
     labelText: {
         color: foreGcolor,
         fontWeight: 700,
-        fontSize: 16
+        fontSize: 16,
+        marginBottom: 4
     },
     textInput: {
         borderWidth: 2,
@@ -52,10 +52,9 @@ const styles = StyleSheet.create({
         borderBottomColor: foreGcolor,
         color: foreGcolor,
         fontSize: 20,
-        // textAlign: "center",
         backgroundColor: backgcolor,
         paddingBottom: 2,
-        marginBottom: 10,
+        marginBottom: 15,
         width: 300,
     },
     submitBtn: {

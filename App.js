@@ -13,7 +13,7 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         <Stack.Screen
-          name="Launchpage"
+          name="LaunchPage"
           component={LauchScreen}
           options={{ title: 'Welcome' }} />
         <Stack.Screen

@@ -10,7 +10,6 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         color: 'white',
         justifyContent: 'center',
-        height: '100%'
     },
     cardContainer: {
     },
@@ -32,18 +31,17 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-start',
     },
     orderBody: {
-        // flex: 1,
         marginTop: 20,
-        marginBottom: 20,
-        alignItems: "center",
-        justifyContent: "center",
+        marginBottom: 10,
+        justifyContent: "flex-start",
         // backgroundColor: '#ccc',
         padding: 0
     },
     labelText: {
         color: foreGcolor,
         fontWeight: 700,
-        fontSize: 16
+        fontSize: 16,
+        marginBottom: 4
     },
     textInput: {
         borderWidth: 2,
@@ -52,10 +50,10 @@ const styles = StyleSheet.create({
         borderTopColor: backgcolor,
         borderBottomColor: foreGcolor,
         color: foreGcolor,
-        fontSize: 20,
+        fontSize: 17,
         backgroundColor: backgcolor,
         paddingBottom: 2,
-        marginBottom: 10,
+        marginBottom: 15,
         width: 300,
     },
     text: {
