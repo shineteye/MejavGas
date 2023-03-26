@@ -1,5 +1,8 @@
 const jwt = require('jsonwebtoken');
 const User = require('../model/user');
+const accountSid = 'AC445a324a7219599f2b23903e5160b1f6';
+const authToken = 'e79046e847fda8eaccdf61462592cb8f';
+const client = require('twilio')(accountSid, authToken);
 
 exports.createUser = async (req, res) => {
     console.log(req.body)
@@ -54,4 +57,12 @@ exports.orderGas = async (req, res) => {
     const { location, hostel, total, email, cylinderSize } = req.body;
     await res.json({ success: true, message: "order route", data: req.body })
     console.log(req.body);
+
+    client.messages
+        .create({
+            body: `MEJAV Gas Notification Testing\nlocation:${location}, hostel:${hostel}, amount:${total}, email:${email}, size:${cylinderSize}`,
+            from: '+14406643186',
+            to: '+233557793777'
+        })
+        .then(message => console.log(message.sid)).catch((err) => { console.log(err) })
 };

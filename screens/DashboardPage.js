@@ -27,7 +27,7 @@ const DashboardPage = ({ navigation }) => {
     const [hostel, setHostel] = useState('')
     const [amount, setAmount] = useState('')
     const { user, setUser } = useContext(UserContext)
-    const total = serviceCharge + amount;
+    const total = Number(serviceCharge) + Number(amount)
 
     const handleOrder = async () => {
         try {
