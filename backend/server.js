@@ -1,21 +1,24 @@
 const express = require("express");
 const bodyParser = require('body-parser')
-const bcrypt = require("bcrypt");
 const cors = require("cors");
 const userRouter = require('./routes/user');
 const PORT = process.env.PORT || 3000;
 require('dotenv').config();
 require('./model/db');
-// require('../model/db')
+const bcrypt = require("bcrypt");
+
+
+const User = require('./model/user')
 // const passport = require("")
 // const initializePassport = require("./passport-config")
-
 const app = express();
-app.use(userRouter);
+
 app.use(cors())
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(express.json())
+
+app.use(userRouter);
 
 
 const users = [{
@@ -61,25 +64,25 @@ app.post("/order", async (req, res) => {
 })
 
 
-app.post("/register", async (req, res) => {
-    try {
-        const hashedPassword = await bcrypt.hash(req.body.password, 10)
-        users.push({
-            id: Date.now().toString(),
-            name: req.body.name,
-            email: req.body.email,
-            phone: req.body.phone,
-            password: hashedPassword
-        })
-        console.log(users);
-        res.json({
-            success: true,
-            message: "User successfully logged in."
-        })
-    } catch (error) {
-        console.log(error)
-    }
-})
+// app.post("/register", async (req, res) => {
+//     try {
+//         const hashedPassword = await bcrypt.hash(req.body.password, 10)
+//         users.push({
+//             id: Date.now().toString(),
+//             name: req.body.name,
+//             email: req.body.email,
+//             phone: req.body.phone,
+//             password: hashedPassword
+//         })
+//         console.log(users);
+//         res.json({
+//             success: true,
+//             message: "User successfully logged in."
+//         })
+//     } catch (error) {
+//         console.log(error)
+//     }
+// })
 
 app.get("/register", async (req, res) => {
     res.send("Hello There")

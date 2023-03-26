@@ -1,87 +1,99 @@
-import React, { useState } from 'react';
-import { Image, Pressable, Text, TextInput, View } from 'react-native';
+import React, { useContext, useState } from 'react';
+import { ScrollView, View } from 'react-native';
+import client from '../api/client';
 import Card from '../components/Cards';
+import FormContainer from '../components/FormContainer';
+import FormInput from '../components/FormInput';
+import FormSubmitBtn from '../components/FormSubmitBtn';
+import Header from '../components/Header';
+import { UserContext } from '../contexts/userContext';
 import styles from '../styles/DashboardStyle';
 
 const cablePhoneAddress = "http://192.168.137.1:3000"
 const localhostAddress = "http://localhost:3000"
 const devAddress = "https://devsite.com"
+const small = "Small"
+const medium = "Medium"
+const large = "Large"
+const smallPrice = 60.00
+const mediumPrice = 120.00
+const largePrice = 200.00
 
 
 const DashboardPage = ({ navigation }) => {
     const serviceCharge = 15;
-    const [cylinderSize, setCylinerSize] = useState('Medium');
+    const [cylinderSize, setCylinderSize] = useState('Medium');
     const [location, setLocation] = useState('')
     const [hostel, setHostel] = useState('')
     const [amount, setAmount] = useState('')
-    const [cost, setCost] = useState(0);
+    const { user, setUser } = useContext(UserContext)
     const total = serviceCharge + amount;
 
     const handleOrder = async () => {
-
-        let orderDetails = { location, hostel, total }
         try {
-            fetch(cablePhoneAddress + "/order", {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(orderDetails)
-            }).then((res) => {
-                console.log("Order Placed Successfully")
-                navigation.navigate("LaunchPage")
-            })
+            alert(user?.email)
+            const res = await client.post('/order', { location, hostel, total, email: user?.email, cylinderSize });
+            console.log(res.data.message);
+            console.log(res.data.data);
         }
         catch (err) {
             console.log("failed" + err.message)
         }
+    }
 
+    const handleSmall = () => {
+        console.log('chosen', small);
+        setCylinderSize(small)
+    }
+
+    const handleMedium = () => {
+        console.log('chosen', medium);
+        setCylinderSize(medium)
+    }
+
+    const handleLarge = () => {
+        console.log('chosen', large);
+        setCylinderSize(large)
     }
 
     return (
         <View style={styles.container}>
-            <View style={styles.headerInfo}>
-                <Image
-                    source={require('../assets/gas-tank.png')}
-                    style={{
-                        width: 40, height: 40,
-                    }} />
-                <Text style={styles.headerText}>Order</Text>
-            </View>
-            <View>
-                <Card />
-            </View>
-            <View style={styles.orderBody}>
-                <Text style={styles.labelText}>Location</Text>
-                <TextInput
-                    style={styles.textInput}
+            <Header title='Order' />
+            <ScrollView horizontal pagingEnabled >
+                <Card
+                    title='Small'
+                    setSource={require('../assets/gas-tank.png')}
+                    amount='60.00'
+                    handler={handleSmall}
+                    btnText={small} />
+
+                <Card
+                    title='Medium'
+                    setSource={require('../assets/gas-tank.png')}
+                    handler={handleMedium}
+                    btnText={medium} />
+
+                <Card
+                    title='Large'
+                    setSource={require('../assets/gas-tank.png')}
+                    handler={handleLarge}
+                    btnText={large} />
+            </ScrollView>
+            <FormContainer extraStyles={{ marginTop: 0 }}>
+                <FormInput
+                    title='Location'
                     value={location}
-                    onChangeText={(val) => setLocation(val)}
-                />
-                <Text style={styles.labelText}>Hostel</Text>
-                <TextInput
-                    style={styles.textInput}
+                    textChangeVal={setLocation} />
+                <FormInput
+                    title='Hostel'
                     value={hostel}
-                    onChangeText={(val) => setHostel(val)}
-                />
-                <Text style={styles.labelText}>Amount</Text>
-                <TextInput
-                    style={styles.textInput}
+                    textChangeVal={setHostel} />
+                <FormInput
+                    title='Amount'
                     value={amount}
-                    onChange={(val) => setAmount(val)}
-                />
-            </View>
-            <View style={styles.bottomInfo}>
-                <Text style={styles.text}>Our Service charge is {serviceCharge}</Text>
-                <Text style={styles.text}>Total amount to be paid is GHc {total}</Text>
-            </View>
-            <View style={styles.orderBtn}>
-                <Pressable onPress={handleOrder}>
-                    <View style={styles.orderBtn}>
-                        <Text style={styles.orderBtnText}>Order</Text>
-                    </View>
-                </Pressable>
-            </View>
+                    textChangeVal={setAmount} />
+                <FormSubmitBtn title='Order' handler={handleOrder} />
+            </FormContainer>
         </View>
     )
 }

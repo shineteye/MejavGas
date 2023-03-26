@@ -1,5 +1,11 @@
-import React, { useState } from 'react';
-import { Image, Modal, Pressable, Text, TextInput, View } from 'react-native';
+import React, { useContext, useState } from 'react';
+import { Image, View } from 'react-native';
+import client from '../api/client';
+import FormContainer from '../components/FormContainer';
+import FormInput from '../components/FormInput';
+import FormSubmitBtn from '../components/FormSubmitBtn';
+import TextButton from '../components/TextButton';
+import { UserContext } from '../contexts/userContext';
 import styles from '../styles/LoginPageStyle';
 
 const cablePhoneAddress = "http://192.168.137.1:3000"
@@ -8,97 +14,79 @@ const devAddress = "https://devsite.com"
 
 const LoginPage = ({ navigation }) => {
 
-    const [modalOpen, setModalOpen] = useState(false);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const { user, setUser } = useContext(UserContext)
 
-    const handleSignup = () => {
-        handleModalClose()
-        navigation.navigate("SignUpPage")
-    }
+
     const handleLogin = async () => {
-        try {
-            fetch(cablePhoneAddress + '/login', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ email, password })
-            });
-            handleModalClose()
-            // alert(message)
-            console.log("logged in");
-            navigation.navigate('DashboardPage')
-        } catch (e) {
-            console.log(e);
-            alert("error")
+        if (isValidForm) {
+            try {
+                const res = await client.post('/login', { email, password })
+                if (res.data.success) {
+                    setUser(res.data.user)
+                    alert("Log in success")
+                    navigation.navigate('DashboardPage')
+                }
+                else
+                    alert('invalid credentials')
+            } catch (error) {
+                console.log(error);
+                alert("Error", "Please fill all entries");
+            }
+        }
+        else {
+            console.log("error")
         }
 
+        // navigation.navigate("DashboardPage")
+        // if (!res.data.sucess) {
+        //     alert("email / password required")
+        // }
+        // else {
+        //     navigation.navigate("DashboardPage")
+        // }
+
     }
-    const handleModalOpen = () => {
-        setModalOpen(true)
+
+    const handleSignup = () => {
+        navigation.navigate("SignUpPage")
     }
-    const handleModalClose = () => {
-        setModalOpen(false)
-    }
+
+    const isValidForm = () => {
+        // only valid email id is allowed
+        if (!(email.includes('@'))) {
+            alert('Invalid email!');
+            return false
+        }
+        // password must have 8 or more characters
+        if (!password.trim() || password.length < 8) {
+            alert('Password is less then 8 characters!');
+            return false
+        }
+        return true;
+    };
+
+
     return (
         <View style={styles.container}>
-            <View style={styles.header}>
-                <Text style={{ ...styles.headerText }}>Thanks for creating an account</Text>
+            <View style={styles.modalImageContainer}>
+                <Image
+                    source={require('../assets/gas-tank.png')}
+                    style={{
+                        width: 100, height: 100,
+                        justifyContent: 'center',
+                        alignItems: 'flex-start',
+                    }} />
             </View>
-
-            {/* Modal */}
-            <Modal visible={modalOpen} animationType={'slide'}>
-                <View style={styles.modalContent}>
-                    <View style={styles.modalImageContainer}>
-                        <Image
-                            source={require('../assets/gas-tank.png')}
-                            style={{
-                                width: 100, height: 100,
-                                justifyContent: 'center',
-                                alignItems: 'flex-start',
-                                // backgroundColor: '#ccc'
-                            }} />
-                    </View>
-                    <View style={styles.modalFormContainer}>
-                        <Text style={styles.labelText}>Email</Text>
-                        <TextInput
-                            style={styles.textInput}
-                            placeholder=""
-                            value={email}
-                            onChangeText={(val) => setEmail(val)}
-                        />
-                        <Text style={styles.labelText}>Password</Text>
-                        <TextInput
-                            style={styles.textInput}
-                            secureTextEntry={true}
-                            value={password}
-                            placeholder=""
-                            onChangeText={(val) => setPassword(val)}
-                        />
-                        <View style={styles.submitBtn}>
-                            <Pressable onPress={handleLogin}>
-                                <View style={styles.launchBtn}>
-                                    <Text style={styles.loginBtnText}>Login</Text>
-                                </View>
-                            </Pressable>
-                        </View>
-                    </View>
-                    <View style={styles.modalCloseBtnView}>
-                        <Pressable onPress={handleSignup}>
-                            <Text style={styles.leaveLoginBtnText}>Don't yet have an account?</Text>
-                        </Pressable>
-                    </View>
-                </View>
-            </Modal>
-            {/* Main Login Page */}
-            <View>
-                <Pressable onPress={handleModalOpen}>
-                    <View style={styles.launchBtn}>
-                        <Text style={styles.loginText}>Get Started</Text>
-                    </View>
-                </Pressable>
-            </View>
+            <FormContainer>
+                <FormInput title='Email'
+                    value={email}
+                    textChangeVal={setEmail} />
+                <FormInput title='Password' value={password} textChangeVal={setPassword} />
+                <FormSubmitBtn title='Login' handler={handleLogin} />
+                <TextButton title="Don't yet have an account?" handler={handleSignup} />
+            </FormContainer>
         </View>
     )
 }

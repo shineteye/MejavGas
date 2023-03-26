@@ -1,4 +1,4 @@
-import { StyleSheet } from "react-native";
+import { Dimensions, StyleSheet } from "react-native";
 
 
 const backgcolor = "#FFFFFF";
@@ -11,7 +11,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         color: 'white',
         justifyContent: 'center',
-        height: '100%'
+        width: Dimensions.get('window').width
     },
     header: {
         flex: 1,

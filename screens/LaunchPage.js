@@ -1,5 +1,5 @@
 import React from 'react'
-import { Image, Pressable, Text, View } from 'react-native'
+import { Image, Text, TouchableWithoutFeedback, View } from 'react-native'
 import styles from '../styles/LaunchPageStyle'
 
 
@@ -22,15 +22,14 @@ const LaunchPage = ({ navigation }) => {
                         }} />
                 </View>
                 <View style={styles.body}>
-                    <Pressable onPress={handleChange}>
+                    <TouchableWithoutFeedback onPress={handleChange}>
                         <View style={styles.launchBtn}>
                             <Text style={styles.launchBtnText}>Launch</Text>
                         </View>
-                    </Pressable>
+                    </TouchableWithoutFeedback>
                 </View>
             </View>
         </View>
-
     )
 }
 
