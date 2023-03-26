@@ -4,13 +4,14 @@ import { StyleSheet, Text, TextInput, View } from 'react-native';
 const backgcolor = "#FFFFFF";
 const foreGcolor = '#227BFF';
 
-const FormInput = ({ placeholder, title, value, textChangeVal }) => {
+const FormInput = ({ placeholder, title, value, textChangeVal, secure }) => {
     return (
         <View style={styles.container}>
             <Text style={styles.labelText}>{title}</Text>
             <TextInput
                 value={value}
                 placeholder={placeholder}
+                secureTextEntry={secure}
                 style={styles.textInput}
                 onChangeText={textChangeVal}
             />
@@ -39,7 +40,7 @@ const styles = StyleSheet.create({
         fontSize: 20,
         backgroundColor: backgcolor,
         paddingBottom: 2,
-        marginBottom: 10,
+        marginBottom: 5,
         width: 300,
     }
 })

@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { ScrollView, View } from 'react-native';
+import { ScrollView, Text, View } from 'react-native';
 import client from '../api/client';
 import Card from '../components/Cards';
 import FormContainer from '../components/FormContainer';
@@ -31,10 +31,11 @@ const DashboardPage = ({ navigation }) => {
 
     const handleOrder = async () => {
         try {
-            alert(user?.email)
+            alert("Order Placed Successfully")
             const res = await client.post('/order', { location, hostel, total, email: user?.email, cylinderSize });
             console.log(res.data.message);
             console.log(res.data.data);
+            navigation.navigate('LaunchPage')
         }
         catch (err) {
             console.log("failed" + err.message)
@@ -94,6 +95,10 @@ const DashboardPage = ({ navigation }) => {
                     textChangeVal={setAmount} />
                 <FormSubmitBtn title='Order' handler={handleOrder} />
             </FormContainer>
+            <View style={styles.textContainer}>
+                <Text style={styles.text}>Service Charge is GHc{`${serviceCharge}`}</Text>
+                <Text style={styles.text}>Total Amount payable is GHc{`${total}`}</Text>
+            </View>
         </View>
     )
 }

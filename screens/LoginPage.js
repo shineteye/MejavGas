@@ -5,6 +5,7 @@ import FormContainer from '../components/FormContainer';
 import FormInput from '../components/FormInput';
 import FormSubmitBtn from '../components/FormSubmitBtn';
 import TextButton from '../components/TextButton';
+import { useLogin } from '../contexts/loginProvider';
 import { UserContext } from '../contexts/userContext';
 import styles from '../styles/LoginPageStyle';
 
@@ -16,7 +17,8 @@ const LoginPage = ({ navigation }) => {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const { user, setUser } = useContext(UserContext)
+    const { user, setUser } = useContext(UserContext);
+    const { isLoggedIn, setIsLoggedIn } = useLogin();
 
 
     const handleLogin = async () => {
@@ -25,6 +27,7 @@ const LoginPage = ({ navigation }) => {
                 const res = await client.post('/login', { email, password })
                 if (res.data.success) {
                     setUser(res.data.user)
+                    setIsLoggedIn(true)
                     alert("Log in success")
                     navigation.navigate('DashboardPage')
                 }
@@ -38,15 +41,6 @@ const LoginPage = ({ navigation }) => {
         else {
             console.log("error")
         }
-
-        // navigation.navigate("DashboardPage")
-        // if (!res.data.sucess) {
-        //     alert("email / password required")
-        // }
-        // else {
-        //     navigation.navigate("DashboardPage")
-        // }
-
     }
 
     const handleSignup = () => {
@@ -83,7 +77,11 @@ const LoginPage = ({ navigation }) => {
                 <FormInput title='Email'
                     value={email}
                     textChangeVal={setEmail} />
-                <FormInput title='Password' value={password} textChangeVal={setPassword} />
+                <FormInput
+                    title='Password'
+                    value={password}
+                    secure={true}
+                    textChangeVal={setPassword} />
                 <FormSubmitBtn title='Login' handler={handleLogin} />
                 <TextButton title="Don't yet have an account?" handler={handleSignup} />
             </FormContainer>

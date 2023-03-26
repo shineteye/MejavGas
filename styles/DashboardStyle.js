@@ -10,6 +10,14 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
+    textContainer: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginBottom: 5
+    },
+    text: {
+        color: foreGcolor,
+    }
 })
 
 export default styles;

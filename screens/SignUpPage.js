@@ -95,8 +95,8 @@ const SignUpPage = ({ navigation }) => {
                         <FormInput title='Full name' value={fullname} textChangeVal={setName} />
                         <FormInput title='Email' value={email} textChangeVal={setEmail} />
                         <FormInput title='Phone number' value={phone} textChangeVal={setPhone} />
-                        <FormInput title='Password' value={password} textChangeVal={setPassword} />
-                        <FormInput title='Retype Password' value={confPassword} textChangeVal={setConfPassword} />
+                        <FormInput title='Password' value={password} secure={true} textChangeVal={setPassword} />
+                        <FormInput title='Retype Password' value={confPassword} secure={true} textChangeVal={setConfPassword} />
                         <FormSubmitBtn title='Submit' handler={handleChange} />
                         <TextButton title="Already have an account?" handler={handleSignup} />
                     </FormContainer>

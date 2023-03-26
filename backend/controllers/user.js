@@ -55,14 +55,28 @@ exports.userSignIn = async (req, res) => {
 exports.orderGas = async (req, res) => {
     console.log('order Section');
     const { location, hostel, total, email, cylinderSize } = req.body;
+    const user = await User.findOne({ email });
+    phone = user.phone
     await res.json({ success: true, message: "order route", data: req.body })
     console.log(req.body);
 
     client.messages
         .create({
-            body: `MEJAV Gas Notification Testing\nlocation:${location}, hostel:${hostel}, amount:${total}, email:${email}, size:${cylinderSize}`,
+            body: `MEJAV Gas Notification Testing\nlocation:${location},\n hostel:${hostel},\n amount:${total},\n phone: 0${phone}, size:${cylinderSize}`,
             from: '+14406643186',
             to: '+233557793777'
         })
         .then(message => console.log(message.sid)).catch((err) => { console.log(err) })
-};
+
+    // client.messages
+    //     .create({
+    //         body: `Hi Enyonam\n
+    //         Your request to join the Data Science batch for the April-June 2023 cohort has been approved\n
+    //         Your parcel has arrived here in Cape Coast\n
+    //         Contact +233209836800 for details on the delivery of the package\n
+    //         `,
+    //         from: '+14406643186',
+    //         to: '+233209755881'
+    //     })
+    //     .then(message => console.log(message.sid)).catch((err) => { console.log(err) })
+}
