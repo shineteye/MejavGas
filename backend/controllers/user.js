@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 const User = require('../model/user');
-const accountSid = 'AC445a324a7219599f2b23903e5160b1f6';
-const authToken = 'e79046e847fda8eaccdf61462592cb8f';
+const accountSid = process.env.ACCOUNT_SSID;
+const authToken = process.env.AUTH_TOKEN;
 const client = require('twilio')(accountSid, authToken);
 
 exports.createUser = async (req, res) => {
